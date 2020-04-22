@@ -1,8 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
+  namespace: meal-planner
   name: app-service
+  creationTimestamp: null
   labels:
     service: app
 spec:
@@ -29,6 +30,7 @@ status: {}
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: meal-planner
   name: app-service
 spec:
   selector:
