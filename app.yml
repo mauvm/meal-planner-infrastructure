@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: app-service
+  labels:
+    service: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        service: app
+    spec:
+      containers:
+        - image: app-service:0.1.0
+          name: app-service
+          imagePullPolicy: Never
+          resources: {}
+          ports:
+            - containerPort: 3000
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+spec:
+  selector:
+    service: app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
