@@ -16,4 +16,7 @@ kubectl config set-context --current --namespace=meal-planner
 kubectl get service
 kubectl port-forward service/app-service 8080:80
 # http://localhost:8080/
+
+# EventStore Admin UI
+kubectl port-forward service/event-store-service 2113:2113
 ```

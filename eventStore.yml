@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: meal-planner
+  name: event-store-service
+  creationTimestamp: null
+  labels:
+    service: event-store
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: event-store
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        service: event-store
+    spec:
+      containers:
+        - image: eventstore/eventstore:release-5.0.8
+          name: event-store-service
+          resources: {}
+          volumeMounts:
+            - name: event-store-storage
+              mountPath: /var/lib/eventstore
+          ports:
+            - containerPort: 1113
+            - containerPort: 2113
+      volumes:
+        - name: event-store-storage
+          emptyDir: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: meal-planner
+  name: event-store-service
+spec:
+  selector:
+    service: event-store
+  ports:
+    - name: client-api
+      protocol: TCP
+      port: 1113
+      targetPort: 1113
+    - name: admin-ui
+      protocol: TCP
+      port: 2113
+      targetPort: 2113
