@@ -19,7 +19,7 @@ spec:
         service: app
     spec:
       containers:
-        - image: app-service:0.2.0
+        - image: app-service:0.3.0
           name: app-service
           imagePullPolicy: Never
           resources: {}
