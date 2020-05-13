@@ -23,15 +23,51 @@ spec:
           name: event-store-service
           resources: {}
           volumeMounts:
-            - name: event-store-storage
+            - name: pv-event-store-data
               mountPath: /var/lib/eventstore
           ports:
             - containerPort: 1113
             - containerPort: 2113
       volumes:
-        - name: event-store-storage
-          emptyDir: {}
+        - name: pv-event-store-data
+          persistentVolumeClaim:
+            claimName: pvc-event-store-data
 status: {}
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  namespace: meal-planner
+  name: pv-event-store-data
+  labels:
+    service: event-store
+spec:
+  volumeMode: Filesystem
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/event-store-data"
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: meal-planner
+  name: pvc-event-store-data
+  labels:
+    service: event-store
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
 ---
 apiVersion: v1
 kind: Service
