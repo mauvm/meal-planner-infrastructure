@@ -25,6 +25,11 @@ spec:
           resources: {}
           ports:
             - containerPort: 3000
+          env:
+            - name: LETSENCRYPT_HOST
+              value: boodschappen.nerdieworks.nl
+            - name: LETSENCRYPT_EMAIL
+              value: maurits@nerdieworks.nl
 status: {}
 ---
 apiVersion: v1
