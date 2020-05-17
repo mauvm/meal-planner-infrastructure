@@ -1,0 +1,10 @@
+resources:
+  # Prerequisites
+  - namespace.yml
+
+  # Third party services
+  - eventStore.yml
+
+  # Microservices
+  - app.yml
+  - shoppingList.yml
