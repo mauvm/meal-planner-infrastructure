@@ -28,4 +28,4 @@ jobs:
             kustomize build production/ > /tmp/manifest.yml
 
             echo "Deploy to TransIP VPS"
-            kubectl apply --kubeconfig=/tmp/kubeconfig -f /tmp/manifest.yml
+            kubectl apply --insecure-skip-tls-verify --kubeconfig=/tmp/kubeconfig -f /tmp/manifest.yml
