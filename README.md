@@ -19,4 +19,11 @@ kubectl port-forward service/app-service 8080:80
 
 # EventStore Admin UI
 kubectl port-forward service/event-store-service 2113:2113
+
+# Github Actions
+# To get KUBE_CONFIG_DATA secret:
+kubectl config view --flatten --minify
+# Change the following:
+# - Replace server IP in clusters.0.cluster.server to domain name
+# - Base64 encode
 ```
