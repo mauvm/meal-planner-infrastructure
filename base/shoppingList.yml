@@ -19,7 +19,7 @@ spec:
         service: shopping-list
     spec:
       containers:
-        - image: shopping-list-service:0.2.0
+        - image: shopping-list-service
           name: shopping-list-service
           imagePullPolicy: Never
           resources: {}
