@@ -1,0 +1,19 @@
+# Remove imagePullPolicy and add imagePullSecrets
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    service: app
+  name: app-service
+  namespace: meal-planner
+spec:
+  template:
+    spec:
+      $setElementOrder/containers:
+        - name: app-service
+      containers:
+        - imagePullPolicy: null
+          name: app-service
+      imagePullSecrets:
+        - name: regcred

@@ -21,14 +21,10 @@ spec:
       containers:
         - image: shopping-list-service
           name: shopping-list-service
-          # @todo Restore here and remove in production/kustomization.yml
-          # imagePullPolicy: Never
+          imagePullPolicy: Never
           resources: {}
           ports:
             - containerPort: 3000
-      # @todo Move to production/kustomization.yml
-      imagePullSecrets:
-        - name: regcred
 status: {}
 
 ---
