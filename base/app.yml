@@ -21,6 +21,7 @@ spec:
       containers:
         - image: app-service
           name: app-service
+          # @todo Restore here and remove in production/kustomization.yml
           # imagePullPolicy: Never
           resources: {}
           ports:
@@ -30,6 +31,9 @@ spec:
               value: boodschappen.nerdieworks.nl
             - name: LETSENCRYPT_EMAIL
               value: maurits@nerdieworks.nl
+      # @todo Move to production/kustomization.yml
+      imagePullSecrets:
+        - name: regcred
 status: {}
 
 ---
