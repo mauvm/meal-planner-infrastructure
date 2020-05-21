@@ -21,7 +21,7 @@ spec:
       containers:
         - image: shopping-list-service
           name: shopping-list-service
-          imagePullPolicy: Never
+          # imagePullPolicy: Never
           resources: {}
           ports:
             - containerPort: 3000

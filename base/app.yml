@@ -21,7 +21,7 @@ spec:
       containers:
         - image: app-service
           name: app-service
-          imagePullPolicy: Never
+          # imagePullPolicy: Never
           resources: {}
           ports:
             - containerPort: 3000
