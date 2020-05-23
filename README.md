@@ -10,7 +10,7 @@ kubectl config use-context minikube
 minikube ip
 minikube dashboard
 
-kubectl apply -f .
+kubectl kustomize development | kubectl apply -f -
 
 kubectl config set-context --current --namespace=meal-planner
 kubectl get service
