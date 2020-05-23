@@ -5,25 +5,28 @@ metadata:
   name: app-service
   creationTimestamp: null
   labels:
-    service: app
     app: app
     version: v1
 spec:
   replicas: 1
+  strategy: {}
   selector:
     matchLabels:
-      service: app
-  strategy: {}
+      app: app
+      version: v1
   template:
     metadata:
       creationTimestamp: null
       labels:
-        service: app
+        app: app
+        version: v1
     spec:
+      # @todo Add service account
       containers:
         - image: app-service
-          name: app-service
+          # @todo Add imagePullPolicy: IfNotPresent and override to Never for development
           imagePullPolicy: Never
+          name: app-service
           resources: {}
           ports:
             - containerPort: 3000
@@ -40,11 +43,13 @@ kind: Service
 metadata:
   namespace: meal-planner
   name: app-service
+  labels:
+    app: app
+    service: app
 spec:
   selector:
-    service: app
+    app: app
   ports:
     - name: http
       protocol: TCP
-      port: 80
-      targetPort: 3000
+      port: 3000

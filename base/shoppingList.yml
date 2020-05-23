@@ -5,25 +5,29 @@ metadata:
   name: shopping-list-service
   creationTimestamp: null
   labels:
-    service: shopping-list
     app: shopping-list
     version: v1
 spec:
   replicas: 1
+  strategy: {}
   selector:
     matchLabels:
-      service: shopping-list
-  strategy: {}
+      app: shopping-list
+      version: v1
   template:
     metadata:
       creationTimestamp: null
       labels:
-        service: shopping-list
+        app: shopping-list
+        version: v1
     spec:
+      # @todo Add service account
+      # @todo Add imagePullPolicy: IfNotPresent and override to Always for development
       containers:
         - image: shopping-list-service
-          name: shopping-list-service
+          # @todo Add imagePullPolicy: IfNotPresent and override to Never for development
           imagePullPolicy: Never
+          name: shopping-list-service
           resources: {}
           ports:
             - containerPort: 3000
@@ -35,11 +39,13 @@ kind: Service
 metadata:
   namespace: meal-planner
   name: shopping-list-service
+  labels:
+    app: shopping-list
+    service: shopping-list
 spec:
   selector:
-    service: shopping-list
+    app: shopping-list
   ports:
     - name: http
       protocol: TCP
-      port: 80
-      targetPort: 3000
+      port: 3000

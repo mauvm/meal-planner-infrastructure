@@ -5,23 +5,26 @@ metadata:
   name: event-store-service
   creationTimestamp: null
   labels:
-    service: event-store
     app: event-store
     version: v5
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: event-store
+      app: event-store
+      version: v5
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        service: event-store
+        app: event-store
+        version: v5
     spec:
+      # @todo Add service account
       containers:
         - image: eventstore/eventstore:release-5.0.8
+          imagePullPolicy: IfNotPresent
           name: event-store-service
           resources: {}
           volumeMounts:
@@ -43,6 +46,7 @@ metadata:
   namespace: meal-planner
   name: pv-event-store-data
   labels:
+    app: event-store
     service: event-store
 spec:
   volumeMode: Filesystem
@@ -61,6 +65,7 @@ metadata:
   namespace: meal-planner
   name: pvc-event-store-data
   labels:
+    app: event-store
     service: event-store
 spec:
   storageClassName: manual
@@ -76,11 +81,14 @@ kind: Service
 metadata:
   namespace: meal-planner
   name: event-store-service
+  labels:
+    app: event-store
+    service: event-store
 spec:
   selector:
-    service: event-store
+    app: event-store
   ports:
-    - name: http-client-api
+    - name: tcp-client-api
       protocol: TCP
       port: 1113
       targetPort: 1113

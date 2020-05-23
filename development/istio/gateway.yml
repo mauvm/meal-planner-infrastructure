@@ -1,0 +1,38 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  namespace: meal-planner
+  name: meal-planner-gateway
+spec:
+  selector:
+    # Use istio default controller
+    istio: ingressgateway
+  servers:
+    - hosts:
+        - "*"
+      port:
+        number: 80
+        name: http
+        protocol: HTTP
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  namespace: meal-planner
+  name: meal-planner
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - meal-planner-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: app-service
+            subset: v1
+            port:
+              number: 3000
