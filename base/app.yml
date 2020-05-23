@@ -6,6 +6,8 @@ metadata:
   creationTimestamp: null
   labels:
     service: app
+    app: app
+    version: v1
 spec:
   replicas: 1
   selector:
@@ -42,6 +44,7 @@ spec:
   selector:
     service: app
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 80
       targetPort: 3000

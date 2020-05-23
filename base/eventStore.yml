@@ -6,6 +6,8 @@ metadata:
   creationTimestamp: null
   labels:
     service: event-store
+    app: event-store
+    version: v5
 spec:
   replicas: 1
   selector:
@@ -78,11 +80,11 @@ spec:
   selector:
     service: event-store
   ports:
-    - name: client-api
+    - name: http-client-api
       protocol: TCP
       port: 1113
       targetPort: 1113
-    - name: admin-ui
+    - name: http-admin-ui
       protocol: TCP
       port: 2113
       targetPort: 2113
