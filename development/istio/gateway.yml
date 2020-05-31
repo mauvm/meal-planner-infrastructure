@@ -29,6 +29,16 @@ spec:
   http:
     - match:
         - uri:
+            prefix: /v1/shopping-lists
+      route:
+        - destination:
+            host: shopping-list-service
+            subset: v1
+            port:
+              number: 3000
+    # Must be last, otherwise this route will be used instead of longer prefixes
+    - match:
+        - uri:
             prefix: /
       route:
         - destination:
