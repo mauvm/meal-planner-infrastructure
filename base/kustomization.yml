@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   # Prerequisites
   - namespace.yml
+  - istio.yml
 
   # Third party services
   - eventStore.yml
@@ -11,3 +12,7 @@ resources:
   # Microservices
   - app.yml
   - shoppingList.yml
+
+  # Istio
+  - destinationRules.yml
+  - gateway.yml
