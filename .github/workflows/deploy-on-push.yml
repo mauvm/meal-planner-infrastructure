@@ -16,6 +16,7 @@ jobs:
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
+          # @todo Configure explicit versions
           # kubectl: 1.18.0
           # kustomize: 3.4.0
           # helm: 2.16.5

@@ -12,7 +12,7 @@ kubectl port-forward -n kubernetes-dashboard service/kubernetes-dashboard 8080:8
 minikube tunnel # Run as Administrator
 
 # Create meal-planner namespace
-kubectl kustomize development | kubectl apply -f -
+kubectl kustomize development/ | kubectl apply -f -
 
 # Inspect and test if running
 kubectl config set-context --current --namespace=meal-planner
@@ -31,6 +31,8 @@ kubectl config view --flatten --minify
 # - Base64 encode
 
 # Istio
+# > Setup on server
+istioctl manifest apply -f istio-profile.yml
 # > Kiali dashboard
 kubectl port-forward -n istio-system service/kiali 9000:20001 # Or "istioctl dashboard kiali"
 # > Verify Istio installation
