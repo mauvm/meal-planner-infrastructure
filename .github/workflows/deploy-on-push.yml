@@ -10,8 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Deploy
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Kubernetes manifest
         uses: stefanprodan/kube-tools@v1
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
@@ -29,7 +31,26 @@ jobs:
             echo "$KUBE_CONFIG_DATA" | base64 --decode > /tmp/kubeconfig
 
             echo "Build Kubernetes configuration"
-            kustomize build production/ > /tmp/manifest.yml
+            # Environment variable substitution is not supported by Kustomize yet,
+            # so use envsubst instead.
+            # See https://github.com/kubernetes-sigs/kustomize/issues/388
+            kustomize build production/ > /tmp/manifest.template.yml
+
+      - name: Replace environment variables
+        uses: nowactions/envsubst@v1
+        env:
+          LETSENCRYPT_HOST: ${{ secrets.LETSENCRYPT_HOST }}
+          LETSENCRYPT_EMAIL: ${{ secrets.LETSENCRYPT_EMAIL }}
+        with:
+          input: /tmp/manifest.template.yml
+          output: /tmp/manifest.yml
+
+      - name: Deploy to VPS
+        uses: stefanprodan/kube-tools@v1
+        with:
+          command: |
+            # Fail on non-zero exit code
+            set -e
 
             echo "Deploy to TransIP VPS"
             kubectl apply --insecure-skip-tls-verify --kubeconfig=/tmp/kubeconfig -f /tmp/manifest.yml

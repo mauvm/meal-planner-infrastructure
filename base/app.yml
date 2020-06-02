@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   namespace: meal-planner
   name: app-service
-  creationTimestamp: null
   labels:
     app: app
     version: v1
@@ -16,7 +15,6 @@ spec:
       version: v1
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: app
         version: v1
@@ -30,11 +28,6 @@ spec:
           resources: {}
           ports:
             - containerPort: 3000
-          env:
-            - name: LETSENCRYPT_HOST
-              value: boodschappen.nerdieworks.nl
-            - name: LETSENCRYPT_EMAIL
-              value: maurits@nerdieworks.nl
 status: {}
 
 ---

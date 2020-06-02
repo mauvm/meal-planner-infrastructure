@@ -1,19 +1,20 @@
-# Remove imagePullPolicy and add imagePullSecrets
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
-  labels:
-    service: app
   name: app-service
-  namespace: meal-planner
 spec:
   template:
     spec:
       $setElementOrder/containers:
         - name: app-service
       containers:
-        - imagePullPolicy: null
-          name: app-service
+        - name: app-service
+          imagePullPolicy: IfNotPresent
+          env:
+            # Let NGinX Proxy's LetsEncrypt companion to handle the SSL certificate
+            - name: LETSENCRYPT_HOST
+              value: ${LETSENCRYPT_HOST}
+            - name: LETSENCRYPT_EMAIL
+              value: ${LETSENCRYPT_EMAIL}
       imagePullSecrets:
-        - name: regcred
+        - name: regcred # Required for self hosted registry

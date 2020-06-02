@@ -1,19 +1,14 @@
-# Remove imagePullPolicy and add imagePullSecrets
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
-  labels:
-    service: shopping-list
   name: shopping-list-service
-  namespace: meal-planner
 spec:
   template:
     spec:
       $setElementOrder/containers:
         - name: shopping-list-service
       containers:
-        - imagePullPolicy: null
-          name: shopping-list-service
+        - name: shopping-list-service
+          imagePullPolicy: IfNotPresent
       imagePullSecrets:
-        - name: regcred
+        - name: regcred # Required for self hosted registry

@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   namespace: meal-planner
   name: event-store-service
-  creationTimestamp: null
   labels:
     app: event-store
     version: v5
@@ -16,7 +15,6 @@ spec:
   strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: event-store
         version: v5

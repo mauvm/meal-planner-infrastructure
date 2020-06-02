@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   namespace: meal-planner
   name: shopping-list-service
-  creationTimestamp: null
   labels:
     app: shopping-list
     version: v1
@@ -16,7 +15,6 @@ spec:
       version: v1
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: shopping-list
         version: v1
