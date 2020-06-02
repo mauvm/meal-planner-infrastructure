@@ -26,7 +26,6 @@ Start Minikube VM and configure `docker` and `kubectl` commands:
 
 ```bash
 minikube start
-eval $(minikube docker-env) # Or "minikube docker-env | Invoke-Expression" on Windows
 kubectl config use-context minikube
 ```
 
@@ -43,10 +42,8 @@ Finally deploy the Kubernetes resources and try out the app:
 ```bash
 kubectl kustomize kubernetes/development/ | kubectl apply -f -
 
-kubectl config set-context --current --namespace=meal-planner
-kubectl get service
-kubectl port-forward service/app-service 8080:3000
-# http://localhost:8080/
+kubectl get -n istio-system service/istio-ingressgateway -o jsonpath="{$.spec.clusterIP}"
+# Open http://{ip}/ in browser
 ```
 
 ### Helpful commands
@@ -59,10 +56,10 @@ minikube ip
 minikube dashboard
 
 # Access to Istio's Kiali dashboard
-istioctl dashboard kiali
+istioctl dashboard kiali # admin:admin
 
-# Direct access to container IPs
-minikube tunnel # Run as Administrator
+# Use Docker commands
+eval $(minikube docker-env) # Or "minikube docker-env | Invoke-Expression" on Windows
 
 # EventStore Admin UI
 kubectl port-forward service/event-store-service 2113:2113 # admin:changeit
