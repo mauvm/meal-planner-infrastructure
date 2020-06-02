@@ -1,13 +1,15 @@
 # Meal Planner: Infrastructure
 
-This repository contains the Infrastructure as Code (IaC) aspect of the [Meal Planner project](https://github.com/users/mauvm/projects/1):
+> Infrastructure as Code (IaC) for [Meal Planner project](https://github.com/users/mauvm/projects/1)
+
+This repository contains:
 
 - Kubernetes manifests for the [services](services)
 - Istio profile and manifest
 
 ## Services
 
-- [App](https://github.com/mauvm/meal-planner-app/): the HTTP web interface (UI)
+- [App](https://github.com/mauvm/meal-planner-app/): the web interface (UI)
 - [Shopping List](https://github.com/mauvm/meal-planner-shopping-list/): the API for managing shopping list items
 
 These services build their own Docker images and push it to a registry that must be accessible to your Kubernetes cluster.
@@ -60,7 +62,7 @@ minikube dashboard
 # Access to Istio's Kiali dashboard
 istioctl dashboard kiali # admin:admin
 
-# Use Docker commands
+# Configure Docker CLI
 eval $(minikube docker-env) # Or "minikube docker-env | Invoke-Expression" on Windows
 
 # EventStore Admin UI

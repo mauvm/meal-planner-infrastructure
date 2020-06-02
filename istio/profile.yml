@@ -1,4 +1,9 @@
-# Used for creating the base/istio.yml manifest
+# Istio configuration
+# When making changes make sure to run:
+# - istioctl manifest apply -f istio/profile.yml
+# - istioctl manifest generate > kubernetes/base/istio.yml
+# - istioctl verify-install -f kubernetes/base/istio.yml
+# - istioctl analyze
 
 apiVersion: install.istio.io/v1alpha1
 kind: IstioOperator
