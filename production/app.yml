@@ -8,7 +8,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: shopping-list
+      app: app
       version: v1
   template:
     spec:
