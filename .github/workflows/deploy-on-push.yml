@@ -39,6 +39,9 @@ jobs:
       - name: Replace environment variables
         uses: nowactions/envsubst@v1
         env:
+          # Add the LETSENCRYPT_HOST and LETSENCRYPT_EMAIL secrets
+          # if you are using the letsencrypt-nginx-proxy-companion.
+          # See https://github.com/nginx-proxy/docker-letsencrypt-nginx-proxy-companion
           LETSENCRYPT_HOST: ${{ secrets.LETSENCRYPT_HOST }}
           LETSENCRYPT_EMAIL: ${{ secrets.LETSENCRYPT_EMAIL }}
         with:

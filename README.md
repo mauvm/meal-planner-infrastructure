@@ -2,6 +2,8 @@
 
 ## Usage
 
+- See [`kubernetes/production/kustomization.yml`](kubernetes/production/kustomization.yml) for service versions
+
 ```bash
 minikube start
 eval $(minikube docker-env) # Or "minikube docker-env | Invoke-Expression" on Windows
@@ -12,7 +14,7 @@ kubectl port-forward -n kubernetes-dashboard service/kubernetes-dashboard 8080:8
 minikube tunnel # Run as Administrator
 
 # Create meal-planner namespace
-kubectl kustomize development/ | kubectl apply -f -
+kubectl kustomize kubernetes/development/ | kubectl apply -f -
 
 # Inspect and test if running
 kubectl config set-context --current --namespace=meal-planner
@@ -32,11 +34,11 @@ kubectl config view --flatten --minify
 
 # Istio
 # > Setup on server
-istioctl manifest apply -f istio-profile.yml
+istioctl manifest apply -f istio/profile.yml
 # > Kiali dashboard
 kubectl port-forward -n istio-system service/kiali 9000:20001 # Or "istioctl dashboard kiali"
 # > Verify Istio installation
 #   Install CLI: https://github.com/istio/istio/releases
-istioctl verify-install -f base/istio.yml
+istioctl verify-install -f kubernetes/base/istio.yml
 istioctl analyze
 ```

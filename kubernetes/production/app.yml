@@ -18,7 +18,7 @@ spec:
         - name: app-service
           imagePullPolicy: IfNotPresent
           env:
-            # Let NGinX Proxy's LetsEncrypt companion to handle the SSL certificate
+            # Configuration for letsencrypt-nginx-proxy-companion
             - name: LETSENCRYPT_HOST
               value: ${LETSENCRYPT_HOST}
             - name: LETSENCRYPT_EMAIL
