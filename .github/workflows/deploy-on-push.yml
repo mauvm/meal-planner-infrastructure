@@ -58,4 +58,4 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: manifest.yml
-          path: ./manifest.yml
+          path: ./manifest.template.yml
