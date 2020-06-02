@@ -1,11 +1,9 @@
 # Meal Planner: Infrastructure
 
-This code base contains the Infrastructure as Code (IaC) aspect of the [Meal Planner project](https://github.com/users/mauvm/projects/1).
-
-It consists of:
+This repository contains the Infrastructure as Code (IaC) aspect of the [Meal Planner project](https://github.com/users/mauvm/projects/1):
 
 - Kubernetes manifests for the [services](services)
-- Istio manifest and profile
+- Istio profile and manifest
 
 ## Services
 
@@ -83,7 +81,6 @@ For deployments with Github Actions you can configure the following secrets:
   1. Get Kubernetes config: `kubectl config view --flatten --minify > /tmp/config.yml`
   2. Replace the server IP to your domain name (path: `clusters/0/cluster/server`)
   3. Encode config: `cat /tmp/config.yml | base64`
-  4. Set as Github Actions secret with name `KUBE_CONFIG_DATA`
 
 When using the [`letsencrypt-nginx-proxy-companion`](letsencrypt-nginx-proxy-companion) you should add these secrets as well:
 

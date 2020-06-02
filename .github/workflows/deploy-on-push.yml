@@ -34,7 +34,7 @@ jobs:
             # Environment variable substitution is not supported by Kustomize yet,
             # so use envsubst instead.
             # See https://github.com/kubernetes-sigs/kustomize/issues/388
-            kustomize build production/ > ./manifest.template.yml
+            kustomize build ./kubernetes/production/ > ./manifest.template.yml
 
       - name: Replace environment variables
         uses: nowactions/envsubst@v1
