@@ -54,3 +54,8 @@ jobs:
 
             echo "Deploy to TransIP VPS"
             kubectl apply --insecure-skip-tls-verify --kubeconfig=/tmp/kubeconfig -f /tmp/manifest.yml
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: manifest.yml
+          path: /tmp/manifest.yml
