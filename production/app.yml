@@ -1,8 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: meal-planner
   name: app-service
+  labels:
+    app: app
 spec:
+  selector:
+    matchLabels:
+      app: shopping-list
+      version: v1
   template:
     spec:
       $setElementOrder/containers:
