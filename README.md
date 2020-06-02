@@ -10,6 +10,8 @@ This repository contains the Infrastructure as Code (IaC) aspect of the [Meal Pl
 - [App](https://github.com/mauvm/meal-planner-app/): the HTTP web interface (UI)
 - [Shopping List](https://github.com/mauvm/meal-planner-shopping-list/): the API for managing shopping list items
 
+These services build their own Docker images and push it to a registry that must be accessible to your Kubernetes cluster.
+
 See [`kubernetes/production/kustomization.yml`](kubernetes/production/kustomization.yml) for setting the service versions.
 
 ## Local Development
@@ -78,6 +80,12 @@ For deployments with Github Actions you can configure the following secrets:
   1. Get Kubernetes config: `kubectl config view --flatten --minify > /tmp/config.yml`
   2. Replace the server IP to your domain name (path: `clusters/0/cluster/server`)
   3. Encode config: `cat /tmp/config.yml | base64`
+
+- `DOCKER_REGISTRY`: Docker registry domain name and repository name (must end with `/`!)
+
+  Leavy empty when using DockerHub or other Docker registry.
+
+  Must end with `/`, for example: `registry.mydomain.eu/meal-planner/`.
 
 When using the [`letsencrypt-nginx-proxy-companion`](letsencrypt-nginx-proxy-companion) you should add these secrets as well:
 

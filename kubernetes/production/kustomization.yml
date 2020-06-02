@@ -11,8 +11,8 @@ patchesStrategicMerge:
 
 images:
   - name: app-service
-    newName: registry.nerdieworks.nl/meal-planner/app-service
+    newName: ${DOCKER_REGISTRY}app-service
     newTag: 0.7.0
   - name: shopping-list-service
-    newName: registry.nerdieworks.nl/meal-planner/shopping-list-service
+    newName: ${DOCKER_REGISTRY}shopping-list-service
     newTag: 0.6.1
