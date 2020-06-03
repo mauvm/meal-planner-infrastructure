@@ -26,7 +26,7 @@ The architecture is simple:
 
 See [`kubernetes/base/gateway.yml`](kubernetes/base/gateway.yml) for the routing configuration.
 
-Tip: use an [`NGinX Proxy`](#letsencrypt-ginx-proxy-companion) in front of your Istio ingress gateway for automatic SSL certificates.
+Tip: use an [`NGinX Proxy`](#letsencrypt-nginx-proxy-companion) in front of your Istio ingress gateway for automatic SSL certificates.
 
 ## Local Development
 
@@ -155,7 +155,7 @@ For deployments with Github Actions you must configure the following secrets:
 
   Leavy domain name blank when using Docker Hub, for example: `meal-planner/`.
 
-When using the [`letsencrypt-nginx-proxy-companion`](letsencrypt-nginx-proxy-companion) you should add these secrets as well:
+When using the [`letsencrypt-nginx-proxy-companion`](#letsencrypt-nginx-proxy-companion) you should add these secrets as well:
 
 - `LETSENCRYPT_HOST`: your domain name
 - `LETSENCRYPT_EMAIL`: your (developer) email address
