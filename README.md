@@ -20,11 +20,9 @@ See [`kubernetes/production/kustomization.yml`](kubernetes/production/kustomizat
 
 The architecture is simple:
 
-<center>
-
-![Kiali service graph](docs/kiali-service-graph.png)
-
-</center>
+<p align="center">
+  <img src="docs/kiali-service-graph.png" alt="Kiali service graph" />
+</p>
 
 See [`kubernetes/base/gateway.yml`](kubernetes/base/gateway.yml) for the routing configuration.
 
@@ -50,7 +48,7 @@ kubectl config use-context minikube
 Then setup [Istio](https://istio.io/):
 
 ```bash
-istioctl manifest apply -f istio/profile.yml
+istioctl install -f istio/profile.yml
 istioctl verify-install -f kubernetes/base/istio.generated.yml
 istioctl analyze
 ```

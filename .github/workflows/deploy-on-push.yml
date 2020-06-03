@@ -18,6 +18,23 @@ jobs:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         run: echo "$KUBE_CONFIG_DATA" | base64 --decode > ./kubeconfig
 
+      - name: Install and verify Istio
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        run: |
+          echo "=> Set Kubectl configuration"
+          mkdir ~/.kube && cp ./kubeconfig ~/.kube/config
+
+          echo "=> Install Istioctl"
+          curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.6.0 sh -
+
+          echo "=> Install Istio"
+          istioctl install -f istio/profile.yml
+
+          echo "=> Verify Istio"
+          istioctl verify-install -f ./kubernetes/base/istio.generated.yml
+          istioctl analyze
+
       - name: Build Kubernetes manifest
         uses: stefanprodan/kube-tools@v1
         with:

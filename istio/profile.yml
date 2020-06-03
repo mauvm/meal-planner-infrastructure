@@ -1,6 +1,6 @@
 # Istio configuration
 # When making changes make sure to run:
-# - istioctl manifest apply -f istio/profile.yml
+# - istioctl install -f istio/profile.yml
 # - istioctl manifest generate -f istio/profile.yml > kubernetes/base/istio.generated.yml
 # - istioctl verify-install -f kubernetes/base/istio.generated.yml
 # - istioctl analyze
