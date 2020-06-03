@@ -16,9 +16,7 @@ jobs:
       - name: Configure Kubectl
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-        run: |
-          mkdir ~/.kube
-          echo "$KUBE_CONFIG_DATA" | base64 --decode > ~/.kube/config
+        run: echo "$KUBE_CONFIG_DATA" | base64 --decode > ./kubeconfig
 
       - name: Build Kubernetes manifest
         uses: stefanprodan/kube-tools@v1
@@ -49,7 +47,7 @@ jobs:
       - name: Deploy to server
         uses: stefanprodan/kube-tools@v1
         with:
-          command: kubectl apply -f ./manifest.yml
+          command: kubectl apply --kubeconfig=./kubeconfig -f ./manifest.yml
 
       - uses: actions/upload-artifact@v2
         with:
