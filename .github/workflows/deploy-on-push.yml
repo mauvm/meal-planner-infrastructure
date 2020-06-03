@@ -13,10 +13,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build Kubernetes manifest
+      - name: Configure Kubectl
         uses: stefanprodan/kube-tools@v1
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        with:
+          command: |
+            echo "=> Configure"
+            echo "$KUBE_CONFIG_DATA" | base64 --decode > ~/.kube/config
+
+      - name: Build Kubernetes manifest
+        uses: stefanprodan/kube-tools@v1
         with:
           # @todo Configure explicit versions
           # kubectl: 1.18.0
@@ -24,18 +31,11 @@ jobs:
           # helm: 2.16.5
           # helmv3: 3.1.2
           command: |
-            # Fail on non-zero exit code
-            set -e
-
-            echo "Authenticate"
-            echo "$KUBE_CONFIG_DATA" | base64 --decode > ./kubeconfig
-
-            echo "Build Kubernetes configuration"
-            # Environment variable substitution is not supported by Kustomize yet,
-            # so use envsubst instead.
-            # See https://github.com/kubernetes-sigs/kustomize/issues/388
+            echo "=> Build Kubernetes configuration"
             kustomize build ./kubernetes/production/ > ./manifest.template.yml
 
+      # Using environment variables is not yet supported by Kustomize, so use envsubst instead.
+      # See https://github.com/kubernetes-sigs/kustomize/issues/388
       - name: Replace environment variables
         uses: nowactions/envsubst@v1
         env:
@@ -50,15 +50,12 @@ jobs:
           input: ./manifest.template.yml
           output: ./manifest.yml
 
-      - name: Deploy to VPS
+      - name: Deploy to server
         uses: stefanprodan/kube-tools@v1
         with:
           command: |
-            # Fail on non-zero exit code
-            set -e
-
-            echo "Deploy to TransIP VPS"
-            kubectl apply --kubeconfig=./kubeconfig -f ./manifest.yml
+            echo "=> Deploy to server"
+            kubectl apply -f ./manifest.yml
 
       - uses: actions/upload-artifact@v2
         with:
