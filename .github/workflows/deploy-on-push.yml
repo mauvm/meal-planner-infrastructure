@@ -14,25 +14,21 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Configure Kubectl
-        uses: stefanprodan/kube-tools@v1
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-        with:
-          command: |
-            echo "=> Configure"
-            echo "$KUBE_CONFIG_DATA" | base64 --decode > ~/.kube/config
+        run: |
+          mkdir ~/.kube
+          echo "$KUBE_CONFIG_DATA" | base64 --decode > ~/.kube/config
 
       - name: Build Kubernetes manifest
         uses: stefanprodan/kube-tools@v1
         with:
-          # @todo Configure explicit versions
+          # @todo Configure explicit versions for stefanprodan/kube-tools@v1 uses
           # kubectl: 1.18.0
           # kustomize: 3.4.0
           # helm: 2.16.5
           # helmv3: 3.1.2
-          command: |
-            echo "=> Build Kubernetes configuration"
-            kustomize build ./kubernetes/production/ > ./manifest.template.yml
+          command: kustomize build ./kubernetes/production/ > ./manifest.template.yml
 
       # Using environment variables is not yet supported by Kustomize, so use envsubst instead.
       # See https://github.com/kubernetes-sigs/kustomize/issues/388
@@ -53,9 +49,7 @@ jobs:
       - name: Deploy to server
         uses: stefanprodan/kube-tools@v1
         with:
-          command: |
-            echo "=> Deploy to server"
-            kubectl apply -f ./manifest.yml
+          command: kubectl apply -f ./manifest.yml
 
       - uses: actions/upload-artifact@v2
         with:
