@@ -36,7 +36,7 @@ spec:
             subset: v1
             port:
               number: 3000
-    # Must be last, otherwise this route will be used instead of longer prefixes
+    # Catch-all must be last
     - match:
         - uri:
             prefix: /

@@ -4,7 +4,7 @@
 
 This repository contains:
 
-- Kubernetes manifests for the [services](services)
+- Kubernetes manifests for the [services](#services)
 - Istio profile and manifest
 
 ## Services
@@ -73,21 +73,69 @@ kubectl port-forward service/event-store-service 2113:2113 # admin:changeit
 
 Deployments to a remote Kubernetes cluster are done with Github Actions.
 
+### Access remote Kubernetes cluster
+
+To access the remote Kubernetes cluster add a Kubectl context:
+
+1. [Generate KUBE_CONFIG_DATA](#github-actions) (base64 encoding is not necessary)
+2. Merge into Kubeconfig on host machine (`~/.kube/config`), see example below
+3. You can now switch to the remote context: `kubectl config use-context remote-minikube`
+
+```yml
+apiVersion: v1
+kind: Config
+preferences: {}
+current-context: minikube
+clusters:
+  - cluster:
+      certificate-authority: /path/to/ca.crt
+      server: https://{minikube ip}:8443
+    name: minikube
+  - cluster:
+      insecure-skip-tls-verify: true
+      server: https://{server domain}:8443
+    name: remote-minikube
+contexts:
+  - context:
+      cluster: minikube
+      namespace: meal-planner
+      user: minikube
+    name: minikube
+  - context:
+      cluster: remote-minikube
+      namespace: meal-planner
+      user: remote-minikube
+    name: remote-minikube
+users:
+  - name: minikube
+    user:
+      client-certificate: ~/.minikube/profiles/minikube/client.crt
+      client-key: /.minikube/profiles/minikube/client.key
+  - name: remote-minikube
+    user:
+      client-certificate-data: ...
+      client-key-data: ...
+```
+
 ### Github Actions
 
-For deployments with Github Actions you can configure the following secrets:
+For deployments with Github Actions you must configure the following secrets:
 
 - `KUBE_CONFIG_DATA`: base64 encoded Kubernetes config
 
-  1. Get Kubernetes config: `kubectl config view --flatten --minify > /tmp/config.yml`
-  2. Replace the server IP to your domain name (path: `clusters/0/cluster/server`)
-  3. Encode config: `cat /tmp/config.yml | base64`
+  1. Get Kubeconfig: `kubectl config view --flatten --minify > /tmp/kubeconfig.yml`
 
-- `DOCKER_REGISTRY`: Docker registry domain name and repository name (must end with `/`!)
+     See [Configure Access to Multiple Clusters](https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) for Kubeconfig details.
 
-  Leavy empty when using DockerHub or other Docker registry.
+  2. Replace `certificate-authority-data: ...` with `insecure-skip-tls-verify: true`
+  3. Replace the server IP to your domain name (path: `clusters/0/cluster/server`)
+  4. Encode config: `cat /tmp/kubeconfig.yml | base64`
+
+- `DOCKER_REGISTRY`: Docker registry domain name and repository name
 
   Must end with `/`, for example: `registry.mydomain.eu/meal-planner/`.
+
+  Leavy domain name blank when using Docker Hub, for example: `meal-planner/`.
 
 When using the [`letsencrypt-nginx-proxy-companion`](letsencrypt-nginx-proxy-companion) you should add these secrets as well:
 

@@ -58,7 +58,7 @@ jobs:
             set -e
 
             echo "Deploy to TransIP VPS"
-            kubectl apply --insecure-skip-tls-verify --kubeconfig=./kubeconfig -f ./manifest.yml
+            kubectl apply --kubeconfig=./kubeconfig -f ./manifest.yml
 
       - uses: actions/upload-artifact@v2
         with:
