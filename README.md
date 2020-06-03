@@ -18,11 +18,17 @@ See [`kubernetes/production/kustomization.yml`](kubernetes/production/kustomizat
 
 ## Architecture
 
-The architecture is quite simple:
+The architecture is simple:
 
-<div style="text-align:center"><img src="docs/kiali-service-graph.png" alt="Kiali service graph" /></div>
+<center>
+
+![Kiali service graph](docs/kiali-service-graph.png)
+
+</center>
 
 See [`kubernetes/base/gateway.yml`](kubernetes/base/gateway.yml) for the routing configuration.
+
+Tip: use an [`NGinX Proxy`](#letsencrypt-ginx-proxy-companion) in front of your Istio ingress gateway for automatic SSL certificates.
 
 ## Local Development
 
@@ -161,9 +167,9 @@ kubectl port-forward -n kubernetes-dashboard service/kubernetes-dashboard 8080:8
 kubectl port-forward -n istio-system service/kiali 9000:20001
 ```
 
-### LetsEncrypt Nginx Proxy Companion
+### LetsEncrypt NGinX Proxy Companion
 
-You can put the [`nginx-proxy`](https://github.com/nginx-proxy/nginx-proxy) before your Istio Ingress Gateway. This allows you to:
+You can put the [`nginx-proxy`](https://github.com/nginx-proxy/nginx-proxy) in front of your Istio ingress gateway. This allows you to:
 
-- Run other Docker applications on the same VPS
-- Run the [`letsencrypt-nginx-proxy-companion`](https://github.com/nginx-proxy/docker-letsencrypt-nginx-proxy-companion) as well, to automatically request and update LetsEncrypt SSL certificates
+- Host other Docker applications on the same server
+- Run the [`letsencrypt-nginx-proxy-companion`](https://github.com/nginx-proxy/docker-letsencrypt-nginx-proxy-companion) on the side to automatically request and update LetsEncrypt SSL certificates
