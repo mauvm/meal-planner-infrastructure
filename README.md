@@ -37,7 +37,7 @@ Then setup [Istio](https://istio.io/):
 
 ```bash
 istioctl manifest apply -f istio/profile.yml
-istioctl verify-install -f kubernetes/base/istio.yml
+istioctl verify-install -f kubernetes/base/istio.generated.yml
 istioctl analyze
 ```
 

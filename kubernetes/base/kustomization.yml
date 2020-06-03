@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   # Prerequisites
   - namespace.yml
-  - istio.yml
+  - istio.generated.yml
 
   # Third party services
   - eventStore.yml
