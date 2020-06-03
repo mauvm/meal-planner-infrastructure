@@ -31,7 +31,7 @@ jobs:
           export PATH="$PATH:istio-${ISTIO_VERSION}/bin"
 
           echo "=> Install Istio"
-          istioctl install -f istio/profile.yml
+          istioctl install -f istio/profile.yml --skip-confirmation
 
           echo "=> Verify Istio"
           istioctl verify-install -f ./kubernetes/base/istio.generated.yml
@@ -49,7 +49,7 @@ jobs:
 
       # Using environment variables is not yet supported by Kustomize, so use envsubst instead.
       # See https://github.com/kubernetes-sigs/kustomize/issues/388
-      - name: Replace environment variables
+      - name: Replace environment variables in Kubernetes manifest
         uses: nowactions/envsubst@v1
         env:
           DOCKER_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
@@ -63,7 +63,7 @@ jobs:
           input: ./manifest.template.yml
           output: ./manifest.yml
 
-      - name: Deploy to server
+      - name: Apply manifest to Kubernetes cluster
         uses: stefanprodan/kube-tools@v1
         with:
           command: kubectl apply --kubeconfig=./kubeconfig -f ./manifest.yml

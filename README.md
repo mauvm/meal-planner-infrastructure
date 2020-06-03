@@ -85,6 +85,12 @@ kubectl port-forward service/event-store-service 2113:2113 # admin:changeit
 
 Deployments to a remote Kubernetes cluster are done with Github Actions.
 
+The Github [`deploy-on-push`](.github/workflows/deploy-on-push.yml) workflow does the following:
+
+1. Install and verify Istio
+2. Build Kubernetes manifest and replace environment variables (for improved configurability)
+3. Apply manifest to Kubernetes cluster
+
 ### Access remote Kubernetes cluster
 
 To access the remote Kubernetes cluster add a Kubectl context:
