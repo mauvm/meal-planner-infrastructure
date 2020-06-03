@@ -21,12 +21,14 @@ jobs:
       - name: Install and verify Istio
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+          ISTIO_VERSION: 1.6.0
         run: |
           echo "=> Set Kubectl configuration"
           mkdir ~/.kube && cp ./kubeconfig ~/.kube/config
 
           echo "=> Install Istioctl"
-          curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.6.0 sh -
+          curl -L https://istio.io/downloadIstio | sh -
+          export PATH="$PATH:istio-${ISTIO_VERSION}/bin"
 
           echo "=> Install Istio"
           istioctl install -f istio/profile.yml
