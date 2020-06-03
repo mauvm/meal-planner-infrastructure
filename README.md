@@ -16,6 +16,14 @@ These services build their own Docker images and push it to a registry that must
 
 See [`kubernetes/production/kustomization.yml`](kubernetes/production/kustomization.yml) for setting the service versions.
 
+## Architecture
+
+The architecture is quite simple:
+
+<div style="text-align:center"><img src="docs/kiali-service-graph.png" alt="Kiali service graph" /></div>
+
+See [`kubernetes/base/gateway.yml`](kubernetes/base/gateway.yml) for the routing configuration.
+
 ## Local Development
 
 Prerequisites for host machine:
@@ -147,6 +155,7 @@ When using the [`letsencrypt-nginx-proxy-companion`](letsencrypt-nginx-proxy-com
 ```bash
 # Access to remote Minikube dashboard
 kubectl port-forward -n kubernetes-dashboard service/kubernetes-dashboard 8080:80
+# Note: "uid : unable to do port forwarding: socat not found" port forwarding errors can be resolved by installing socat on the remote machine (yum install socat)
 
 # Access to remote Kiali dashboard
 kubectl port-forward -n istio-system service/kiali 9000:20001
