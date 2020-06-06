@@ -24,7 +24,7 @@ The architecture is simple:
   <img src="docs/kiali-service-graph.png" alt="Kiali service graph" />
 </p>
 
-See [`kubernetes/base/gateway.yml`](kubernetes/base/gateway.yml) for the routing configuration.
+See [`kubernetes/base/networking/gateway.yml`](kubernetes/base/networking/gateway.yml) for the routing configuration.
 
 Tip: use an [`NGinX Proxy`](#letsencrypt-nginx-proxy-companion) in front of your Istio ingress gateway for automatic SSL certificates.
 
@@ -49,7 +49,7 @@ Then setup [Istio](https://istio.io/):
 
 ```bash
 istioctl install -f istio/profile.yml
-istioctl verify-install -f kubernetes/base/istio.generated.yml
+istioctl verify-install -f kubernetes/base/networking/istio.generated.yml
 istioctl analyze
 ```
 

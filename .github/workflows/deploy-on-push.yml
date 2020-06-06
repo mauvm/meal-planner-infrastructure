@@ -34,7 +34,7 @@ jobs:
           istioctl install -f istio/profile.yml --skip-confirmation
 
           echo "=> Verify Istio"
-          istioctl verify-install -f ./kubernetes/base/istio.generated.yml
+          istioctl verify-install -f ./kubernetes/base/networking/istio.generated.yml
           istioctl analyze
 
       - name: Build Kubernetes manifest
