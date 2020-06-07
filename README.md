@@ -160,6 +160,7 @@ users:
 
 For deployments with Github Actions you must configure the following secrets:
 
+- `HOST_DOMAIN`: Domain the app will be hosted on (i.e. `meal-planner-app.eu`)
 - `KUBE_CONFIG_DATA_BASE64`: base64 encoded Kubernetes config
 
   1. Get Kubeconfig: `kubectl config view --flatten --minify > /tmp/kubeconfig.yml`
