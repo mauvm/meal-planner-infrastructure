@@ -52,6 +52,7 @@ jobs:
       - name: Replace environment variables in Kubernetes manifest
         uses: nowactions/envsubst@v1
         env:
+          HOST_DOMAIN: ${{ secrets.HOST_DOMAIN }}
           DOCKER_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
 
           # Configure letsencrypt-nginx-proxy-companion (optional)
