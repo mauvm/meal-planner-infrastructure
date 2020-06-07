@@ -5,7 +5,7 @@ bases:
   - ../base
 
 resources:
-  - secrets/letsencrypt.yml
+  - configs/letsencrypt.yml
 
 patchesStrategicMerge:
   # Services

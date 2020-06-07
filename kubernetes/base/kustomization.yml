@@ -5,7 +5,7 @@ resources:
   # Prerequisites
   - namespace.yml
   - configs/host.yml
-  - secrets/auth0.yml
+  - configs/auth0.yml
   - networking/istio.generated.yml
 
   # Third party services
