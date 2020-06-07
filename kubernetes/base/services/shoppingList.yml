@@ -61,3 +61,18 @@ spec:
   jwtRules:
     - issuer: "https://${AUTH0_DOMAIN}/"
       jwksUri: "https://${AUTH0_DOMAIN}/.well-known/jwks.json"
+
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  namespace: meal-planner
+  name: shopping-list-service-jwt-authorization-policy
+spec:
+  selector:
+    matchLabels:
+      app: shopping-list
+  rules:
+    - from:
+        - source:
+            requestPrincipals: ["*"]
