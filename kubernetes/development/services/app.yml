@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: meal-planner
+  name: app-service
+  labels:
+    app: app
+spec:
+  selector:
+    matchLabels:
+      app: app
+      version: v1
+  template:
+    spec:
+      $setElementOrder/containers:
+        - name: app-service
+      containers:
+        - name: app-service
+          env:
+            - name: NODE_ENV
+              value: development

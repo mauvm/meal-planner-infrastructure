@@ -4,15 +4,18 @@ kind: Kustomization
 bases:
   - ../base
 
+resources:
+  - secrets/letsencrypt.yml
+
 patchesStrategicMerge:
-  # Microservices
+  # Services
   - services/app.yml
   - services/shoppingList.yml
 
 images:
   - name: app-service
     newName: ${DOCKER_REGISTRY}app-service
-    newTag: 0.8.0
+    newTag: 0.8.2
   - name: shopping-list-service
     newName: ${DOCKER_REGISTRY}shopping-list-service
     newTag: 0.6.1

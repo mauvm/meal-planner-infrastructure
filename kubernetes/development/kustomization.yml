@@ -4,6 +4,10 @@ kind: Kustomization
 bases:
   - ../base
 
+patchesStrategicMerge:
+  # Services
+  - services/app.yml
+
 images:
   - name: app-service
     newTag: latest

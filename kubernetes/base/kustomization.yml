@@ -4,12 +4,14 @@ kind: Kustomization
 resources:
   # Prerequisites
   - namespace.yml
+  - configs/host.yml
+  - secrets/auth0.yml
   - networking/istio.generated.yml
 
   # Third party services
   - persistance/eventStore.yml
 
-  # Microservices
+  # Services
   - services/app.yml
   - services/shoppingList.yml
 

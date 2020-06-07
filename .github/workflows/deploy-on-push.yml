@@ -54,11 +54,17 @@ jobs:
         env:
           DOCKER_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
 
-          # Add the LETSENCRYPT_HOST and LETSENCRYPT_EMAIL secrets
-          # if you are using the letsencrypt-nginx-proxy-companion.
+          # Configure letsencrypt-nginx-proxy-companion (optional)
           # See https://github.com/nginx-proxy/docker-letsencrypt-nginx-proxy-companion
           LETSENCRYPT_HOST: ${{ secrets.LETSENCRYPT_HOST }}
           LETSENCRYPT_EMAIL: ${{ secrets.LETSENCRYPT_EMAIL }}
+
+          # Configure Auth0
+          AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
+          AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
+          AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0_CLIENT_SECRET }}
+          AUTH0_COOKIE_SECRET: ${{ secrets.AUTH0_COOKIE_SECRET }}
+
         with:
           input: ./manifest.template.yml
           output: ./manifest.yml
@@ -67,8 +73,8 @@ jobs:
         uses: stefanprodan/kube-tools@v1
         with:
           command: kubectl apply --kubeconfig=./kubeconfig -f ./manifest.yml
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: manifest.yml
-          path: ./manifest.template.yml
+      # Don't upload manifest as long as it can contain secrets
+      # - uses: actions/upload-artifact@v2
+      #   with:
+      #     name: manifest.yml
+      #     path: ./manifest.template.yml

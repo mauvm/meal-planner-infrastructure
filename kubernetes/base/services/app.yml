@@ -21,13 +21,45 @@ spec:
     spec:
       # @todo Add service account
       containers:
-        - image: app-service
+        - name: app-service
+          image: app-service
           # @todo Add imagePullPolicy: IfNotPresent and override to Never for development
           imagePullPolicy: Never
-          name: app-service
           resources: {}
           ports:
             - containerPort: 3000
+          env:
+            # Configure Auth0
+            - name: HOST_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: host
+                  key: domain
+            - name: AUTH0_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: auth0
+                  key: domain
+            - name: AUTH0_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: auth0
+                  key: clientId
+            - name: AUTH0_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: auth0
+                  key: clientSecret
+            - name: AUTH0_AUDIENCE
+              valueFrom:
+                secretKeyRef:
+                  name: auth0
+                  key: audience
+            - name: AUTH0_COOKIE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: auth0
+                  key: cookieSecret
 status: {}
 
 ---

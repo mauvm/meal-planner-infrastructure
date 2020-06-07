@@ -35,6 +35,7 @@ Prerequisites for host machine:
 - [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/)
 - [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 - [Istioctl](https://github.com/istio/istio/releases/)
+- [envsubst](https://linux.die.net/man/1/envsubst)
 
 Follow the guides above to setup and configure your Minikube cluster.
 
@@ -43,6 +44,20 @@ Start Minikube VM and configure `docker` and `kubectl` commands:
 ```bash
 minikube start
 kubectl config use-context minikube
+```
+
+Next, configure the development environment:
+
+```bash
+# envsubst will be used to inject variables/secrets into the Kubernetes manifest,
+# because Kustomize only provides limited support for this:
+# - secretsGenerator: for using env files, provides secrets for vars
+# - vars: copy value from object reference to given field path.
+#         Problem: limited to hard coded varreference, unusable for
+#         RequestAuthentication in services
+# - ReplacementTransformer: didn't get far with Kustomize's docs about plugin usage
+cp kubernetes/development/.env.example kubernetes/development/.env
+edit kubernetes/development/.env
 ```
 
 Then setup [Istio](https://istio.io/):
@@ -56,7 +71,10 @@ istioctl analyze
 Finally deploy the Kubernetes resources and try out the app:
 
 ```bash
-kubectl kustomize kubernetes/development/ | kubectl apply -f -
+source kubernetes/development/.env
+kubectl kustomize kubernetes/development/ | envsubst | kubectl apply -f -
+
+sudo minikube tunnel
 
 kubectl get -n istio-system service/istio-ingressgateway -o jsonpath="{$.spec.clusterIP}"
 # Open http://{ip}/ in browser
@@ -77,8 +95,11 @@ istioctl dashboard kiali # admin:admin
 # Configure Docker CLI
 eval $(minikube docker-env) # Or "minikube docker-env | Invoke-Expression" on Windows
 
+# Set default namespace
+kubectl config set-context --current --namespace=meal-planner
+
 # EventStore Admin UI
-kubectl port-forward service/event-store-service 2113:2113 # admin:changeit
+kubectl port-forward -n meal-planner service/event-store-service 2113:2113 # admin:changeit
 ```
 
 ## Deploy to Production
@@ -155,7 +176,13 @@ For deployments with Github Actions you must configure the following secrets:
 
   Leavy domain name blank when using Docker Hub, for example: `meal-planner/`.
 
-When using the [`letsencrypt-nginx-proxy-companion`](#letsencrypt-nginx-proxy-companion) you should add these secrets as well:
+- `AUTH0_DOMAIN`: See Auth0 > Applications > Your app > Settings
+- `AUTH0_CLIENT_ID`: See Auth0 > Applications > Your app > Settings
+- `AUTH0_CLIENT_SECRET`: See Auth0 > Applications > Your app > Settings
+- `AUTH0_AUDIENCE`: Auth0 API audience domain, see Auth0 > APIs
+- `AUTH0_COOKIE_SECRET`: Cookie secret for encrypting cookies (random string of 32 characters)
+
+When using the [`letsencrypt-nginx-proxy-companion`](#letsencrypt-nginx-proxy-companion) you should add these secrets as well (optional):
 
 - `LETSENCRYPT_HOST`: your domain name
 - `LETSENCRYPT_EMAIL`: your (developer) email address

@@ -22,10 +22,10 @@ spec:
       # @todo Add service account
       # @todo Add imagePullPolicy: IfNotPresent and override to Always for development
       containers:
-        - image: shopping-list-service
+        - name: shopping-list-service
+          image: shopping-list-service
           # @todo Add imagePullPolicy: IfNotPresent and override to Never for development
           imagePullPolicy: Never
-          name: shopping-list-service
           resources: {}
           ports:
             - containerPort: 3000
@@ -47,3 +47,17 @@ spec:
     - name: http
       protocol: TCP
       port: 3000
+
+---
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  namespace: meal-planner
+  name: shopping-list-service-jwt-request-authentication
+spec:
+  selector:
+    matchLabels:
+      app: shopping-list
+  jwtRules:
+    - issuer: "https://${AUTH0_DOMAIN}/"
+      jwksUri: "https://${AUTH0_DOMAIN}/.well-known/jwks.json"

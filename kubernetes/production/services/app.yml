@@ -18,10 +18,16 @@ spec:
         - name: app-service
           imagePullPolicy: IfNotPresent
           env:
-            # Configuration for letsencrypt-nginx-proxy-companion
+            # Configure letsencrypt-nginx-proxy-companion
             - name: LETSENCRYPT_HOST
-              value: ${LETSENCRYPT_HOST}
+              valueFrom:
+                secretKeyRef:
+                  name: letsencrypt
+                  key: host
             - name: LETSENCRYPT_EMAIL
-              value: ${LETSENCRYPT_EMAIL}
+              valueFrom:
+                secretKeyRef:
+                  name: letsencrypt
+                  key: email
       imagePullSecrets:
         - name: regcred # Required for self hosted registry
