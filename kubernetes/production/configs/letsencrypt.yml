@@ -4,5 +4,5 @@ metadata:
   namespace: meal-planner
   name: letsencrypt
 data:
-  host: ${LETSENCRYPT_HOST}
-  email: ${LETSENCRYPT_EMAIL}
+  host: ${LETSENCRYPT_HOST_BASE64}
+  email: ${LETSENCRYPT_EMAIL_BASE64}

@@ -188,8 +188,8 @@ For configuring Auth0 go to: manage.auth0.com > Applications > {Your App} > Sett
 
 When using the [`letsencrypt-nginx-proxy-companion`](#letsencrypt-nginx-proxy-companion) you should add these secrets as well (optional):
 
-- `LETSENCRYPT_HOST`: your domain name
-- `LETSENCRYPT_EMAIL`: your (developer) email address
+- `LETSENCRYPT_HOST_BASE64`: your domain name
+- `LETSENCRYPT_EMAIL_BASE64`: your (developer) email address
 
 ### Helpful commands
 

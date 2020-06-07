@@ -57,8 +57,8 @@ jobs:
 
           # Configure letsencrypt-nginx-proxy-companion (optional)
           # See https://github.com/nginx-proxy/docker-letsencrypt-nginx-proxy-companion
-          LETSENCRYPT_HOST: ${{ secrets.LETSENCRYPT_HOST }}
-          LETSENCRYPT_EMAIL: ${{ secrets.LETSENCRYPT_EMAIL }}
+          LETSENCRYPT_HOST_BASE64: ${{ secrets.LETSENCRYPT_HOST_BASE64 }}
+          LETSENCRYPT_EMAIL_BASE64: ${{ secrets.LETSENCRYPT_EMAIL_BASE64 }}
 
           # Configure Auth0
           AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
