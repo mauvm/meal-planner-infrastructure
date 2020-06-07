@@ -15,7 +15,7 @@ jobs:
 
       - name: Configure Kubectl
         env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA_BASE64 }}
         run: echo "$KUBE_CONFIG_DATA" | base64 --decode > ./kubeconfig
 
       - name: Install and verify Istio
@@ -61,9 +61,10 @@ jobs:
 
           # Configure Auth0
           AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
-          AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
-          AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0_CLIENT_SECRET }}
-          AUTH0_COOKIE_SECRET: ${{ secrets.AUTH0_COOKIE_SECRET }}
+          AUTH0_DOMAIN_BASE64: ${{ secrets.AUTH0_DOMAIN_BASE64 }}
+          AUTH0_CLIENT_ID_BASE64: ${{ secrets.AUTH0_CLIENT_ID_BASE64 }}
+          AUTH0_CLIENT_SECRET_BASE64: ${{ secrets.AUTH0_CLIENT_SECRET_BASE64 }}
+          AUTH0_COOKIE_SECRET_BASE64: ${{ secrets.AUTH0_COOKIE_SECRET_BASE64 }}
 
         with:
           input: ./manifest.template.yml

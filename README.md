@@ -160,7 +160,7 @@ users:
 
 For deployments with Github Actions you must configure the following secrets:
 
-- `KUBE_CONFIG_DATA`: base64 encoded Kubernetes config
+- `KUBE_CONFIG_DATA_BASE64`: base64 encoded Kubernetes config
 
   1. Get Kubeconfig: `kubectl config view --flatten --minify > /tmp/kubeconfig.yml`
 
@@ -176,11 +176,14 @@ For deployments with Github Actions you must configure the following secrets:
 
   Leavy domain name blank when using Docker Hub, for example: `meal-planner/`.
 
-- `AUTH0_DOMAIN`: See Auth0 > Applications > Your app > Settings
-- `AUTH0_CLIENT_ID`: See Auth0 > Applications > Your app > Settings
-- `AUTH0_CLIENT_SECRET`: See Auth0 > Applications > Your app > Settings
-- `AUTH0_AUDIENCE`: Auth0 API audience domain, see Auth0 > APIs
-- `AUTH0_COOKIE_SECRET`: Cookie secret for encrypting cookies (random string of 32 characters)
+For configuring Auth0 go to: manage.auth0.com > Applications > {Your App} > Settings.
+
+- `AUTH0_DOMAIN`: Settings > Domain (i.e. `my-app.eu.auth0.com`)
+- `AUTH0_DOMAIN_BASE64`: Settings > Domain
+- `AUTH0_CLIENT_ID_BASE64`: Settings > Client ID
+- `AUTH0_CLIENT_SECRET_BASE64`: Settings > Client Secret
+- `AUTH0_AUDIENCE_BASE64`: Auth0 API audience domain, see Auth0 > APIs
+- `AUTH0_COOKIE_SECRET_BASE64`: Cookie secret for encrypting cookies (random string of 32 characters)
 
 When using the [`letsencrypt-nginx-proxy-companion`](#letsencrypt-nginx-proxy-companion) you should add these secrets as well (optional):
 
