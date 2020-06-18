@@ -195,11 +195,11 @@ When using the [`letsencrypt-nginx-proxy-companion`](#letsencrypt-nginx-proxy-co
 
 ```bash
 # Access to remote Minikube dashboard
-kubectl port-forward -n kubernetes-dashboard service/kubernetes-dashboard 8080:80
+kubectl port-forward -n kubernetes-dashboard service/kubernetes-dashboard 9000:80
 # Note: "uid : unable to do port forwarding: socat not found" port forwarding errors can be resolved by installing socat on the remote machine (yum install socat)
 
 # Access to remote Kiali dashboard
-kubectl port-forward -n istio-system service/kiali 9000:20001
+kubectl port-forward -n istio-system service/kiali 9001:20001
 ```
 
 ### LetsEncrypt NGinX Proxy Companion
