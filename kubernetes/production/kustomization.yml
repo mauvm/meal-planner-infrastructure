@@ -15,7 +15,7 @@ patchesStrategicMerge:
 images:
   - name: app-service
     newName: ${DOCKER_REGISTRY}app-service
-    newTag: 0.9.0
+    newTag: 0.10.0
   - name: list-service
     newName: ${DOCKER_REGISTRY}list-service
-    newTag: 0.7.0
+    newTag: 0.8.0
