@@ -2,28 +2,28 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: meal-planner
-  name: shopping-list-service
+  name: list-service
   labels:
-    app: shopping-list
+    app: list
     version: v1
 spec:
   replicas: 1
   strategy: {}
   selector:
     matchLabels:
-      app: shopping-list
+      app: list
       version: v1
   template:
     metadata:
       labels:
-        app: shopping-list
+        app: list
         version: v1
     spec:
       # @todo Add service account
       # @todo Add imagePullPolicy: IfNotPresent and override to Always for development
       containers:
-        - name: shopping-list-service
-          image: shopping-list-service
+        - name: list-service
+          image: list-service
           # @todo Add imagePullPolicy: IfNotPresent and override to Never for development
           imagePullPolicy: Never
           resources: {}
@@ -36,13 +36,13 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: meal-planner
-  name: shopping-list-service
+  name: list-service
   labels:
-    app: shopping-list
-    service: shopping-list
+    app: list
+    service: list
 spec:
   selector:
-    app: shopping-list
+    app: list
   ports:
     - name: http
       protocol: TCP
@@ -53,11 +53,11 @@ apiVersion: security.istio.io/v1beta1
 kind: RequestAuthentication
 metadata:
   namespace: meal-planner
-  name: shopping-list-service-jwt-request-authentication
+  name: list-service-jwt-request-authentication
 spec:
   selector:
     matchLabels:
-      app: shopping-list
+      app: list
   jwtRules:
     - issuer: "https://${AUTH0_DOMAIN}/"
       jwksUri: "https://${AUTH0_DOMAIN}/.well-known/jwks.json"
@@ -67,11 +67,11 @@ apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
   namespace: meal-planner
-  name: shopping-list-service-jwt-authorization-policy
+  name: list-service-jwt-authorization-policy
 spec:
   selector:
     matchLabels:
-      app: shopping-list
+      app: list
   rules:
     - from:
         - source:

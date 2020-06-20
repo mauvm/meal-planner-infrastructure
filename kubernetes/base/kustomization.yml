@@ -13,7 +13,7 @@ resources:
 
   # Services
   - services/app.yml
-  - services/shoppingList.yml
+  - services/list.yml
 
   # Istio
   - networking/destinationRules.yml

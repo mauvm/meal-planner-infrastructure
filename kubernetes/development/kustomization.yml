@@ -11,5 +11,5 @@ patchesStrategicMerge:
 images:
   - name: app-service
     newTag: latest
-  - name: shopping-list-service
+  - name: list-service
     newTag: latest

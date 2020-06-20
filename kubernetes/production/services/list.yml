@@ -2,20 +2,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: meal-planner
-  name: shopping-list-service
+  name: list-service
   labels:
-    app: shopping-list
+    app: list
 spec:
   selector:
     matchLabels:
-      app: shopping-list
+      app: list
       version: v1
   template:
     spec:
       $setElementOrder/containers:
-        - name: shopping-list-service
+        - name: list-service
       containers:
-        - name: shopping-list-service
+        - name: list-service
           imagePullPolicy: IfNotPresent
       imagePullSecrets:
         - name: regcred # Required for self hosted registry

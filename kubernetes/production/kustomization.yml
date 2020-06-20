@@ -10,12 +10,12 @@ resources:
 patchesStrategicMerge:
   # Services
   - services/app.yml
-  - services/shoppingList.yml
+  - services/list.yml
 
 images:
   - name: app-service
     newName: ${DOCKER_REGISTRY}app-service
     newTag: 0.9.0
-  - name: shopping-list-service
-    newName: ${DOCKER_REGISTRY}shopping-list-service
+  - name: list-service
+    newName: ${DOCKER_REGISTRY}list-service
     newTag: 0.7.0

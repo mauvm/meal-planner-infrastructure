@@ -29,10 +29,10 @@ spec:
   http:
     - match:
         - uri:
-            prefix: /v1/shopping-lists
+            prefix: /v1/lists
       route:
         - destination:
-            host: shopping-list-service
+            host: list-service
             subset: v1
             port:
               number: 3000

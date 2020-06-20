@@ -9,8 +9,8 @@ This repository contains:
 
 ## Services
 
-- [App](https://github.com/mauvm/meal-planner-app/): the web interface (UI)
-- [Shopping List](https://github.com/mauvm/meal-planner-shopping-list/): the API for managing shopping list items
+- [App](https://github.com/mauvm/meal-planner-app-service/): the web interface (UI)
+- [List](https://github.com/mauvm/meal-planner-list-service/): the API for managing list items
 
 These services build their own Docker images and push it to a registry that must be accessible to your Kubernetes cluster.
 
