@@ -191,6 +191,12 @@ When using the [`letsencrypt-nginx-proxy-companion`](#letsencrypt-nginx-proxy-co
 - `LETSENCRYPT_HOST_BASE64`: your domain name
 - `LETSENCRYPT_EMAIL_BASE64`: your (developer) email address
 
+Installing Istio on the first run will fail if you do not disable injection for the default namespace. Make sure to run this:
+
+```bash
+kubectl label namespace default istio-injection=disabled
+```
+
 ### Helpful commands
 
 ```bash

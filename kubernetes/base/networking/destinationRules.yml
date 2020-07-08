@@ -1,6 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
+  namespace: meal-planner
   name: app-service
 spec:
   host: app-service
@@ -13,6 +14,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
+  namespace: meal-planner
   name: list-service
 spec:
   host: list-service
@@ -25,6 +27,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
+  namespace: meal-planner
   name: event-store-service
 spec:
   host: event-store-service

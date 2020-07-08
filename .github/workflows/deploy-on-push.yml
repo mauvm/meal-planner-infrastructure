@@ -31,7 +31,7 @@ jobs:
           export PATH="$PATH:istio-${ISTIO_VERSION}/bin"
 
           echo "=> Install Istio"
-          istioctl install -f istio/profile.yml --skip-confirmation
+          istioctl install -f ./istio/profile.yml --skip-confirmation
 
           echo "=> Verify Istio"
           istioctl verify-install -f ./kubernetes/base/networking/istio.generated.yml
