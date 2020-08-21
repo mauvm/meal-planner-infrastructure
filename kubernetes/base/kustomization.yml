@@ -6,6 +6,7 @@ resources:
   - namespace.yml
   - configs/host.yml
   - configs/auth0.yml
+  - configs/listInviteCode.yml
   - networking/istio.generated.yml
 
   # Third party services

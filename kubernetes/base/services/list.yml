@@ -33,7 +33,7 @@ spec:
             # Configure list invite codes
             - name: LIST_INVITE_CODE_SECRET_KEY
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: list-invite-code
                   key: secretKey
             - name: LIST_INVITE_CODE_INIT_VECTOR
