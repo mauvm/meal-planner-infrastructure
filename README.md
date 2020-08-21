@@ -177,6 +177,8 @@ For deployments with Github Actions you must configure the following secrets:
 
   Leavy domain name blank when using Docker Hub, for example: `meal-planner/`.
 
+- `DOCKER_CONFIG_JSON_BASE64`: base64 encoded `~/.docker/config.json` (run `docker login registry.mydomain.eu` first)
+
 For configuring Auth0 go to: manage.auth0.com > Applications > {Your App} > Settings.
 
 - `AUTH0_DOMAIN`: Settings > Domain (i.e. `my-app.eu.auth0.com`)

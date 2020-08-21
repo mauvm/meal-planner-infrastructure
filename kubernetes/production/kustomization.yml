@@ -5,6 +5,7 @@ bases:
   - ../base
 
 resources:
+  - configs/registry.yml
   - configs/letsencrypt.yml
 
 patchesStrategicMerge:
