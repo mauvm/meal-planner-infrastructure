@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  namespace: meal-planner
+  name: list-invite-code
+data:
+  secretKey: "${LIST_INVITE_CODE_SECRET_KEY}"
+  initVector: "${LIST_INVITE_CODE_INIT_VECTOR}"

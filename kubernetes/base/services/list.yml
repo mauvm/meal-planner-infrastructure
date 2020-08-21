@@ -29,6 +29,18 @@ spec:
           resources: {}
           ports:
             - containerPort: 3000
+          env:
+            # Configure list invite codes
+            - name: LIST_INVITE_CODE_SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: list-invite-code
+                  key: secretKey
+            - name: LIST_INVITE_CODE_INIT_VECTOR
+              valueFrom:
+                secretKeyRef:
+                  name: list-invite-code
+                  key: initVector
 status: {}
 
 ---

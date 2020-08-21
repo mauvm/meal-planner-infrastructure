@@ -186,6 +186,11 @@ For configuring Auth0 go to: manage.auth0.com > Applications > {Your App} > Sett
 - `AUTH0_AUDIENCE_BASE64`: Auth0 API audience domain, see Auth0 > APIs
 - `AUTH0_COOKIE_SECRET_BASE64`: Cookie secret for encrypting cookies (random string of 32 characters)
 
+Configure these secrets for the list service:
+
+- `LIST_INVITE_CODE_SECRET_KEY`: Random string of 32 characters
+- `LIST_INVITE_CODE_INIT_VECTOR`: Random string of 32 characters
+
 When using the [`letsencrypt-nginx-proxy-companion`](#letsencrypt-nginx-proxy-companion) you should add these secrets as well (optional):
 
 - `LETSENCRYPT_HOST_BASE64`: your domain name
