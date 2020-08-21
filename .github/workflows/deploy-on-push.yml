@@ -70,8 +70,8 @@ jobs:
           AUTH0_COOKIE_SECRET_BASE64: ${{ secrets.AUTH0_COOKIE_SECRET_BASE64 }}
 
           # List invite codes
-          LIST_INVITE_CODE_SECRET_KEY: ${{ secrets.LIST_INVITE_CODE_SECRET_KEY }}
-          LIST_INVITE_CODE_INIT_VECTOR: ${{ secrets.LIST_INVITE_CODE_INIT_VECTOR }}
+          LIST_INVITE_CODE_SECRET_KEY_BASE64: ${{ secrets.LIST_INVITE_CODE_SECRET_KEY_BASE64 }}
+          LIST_INVITE_CODE_INIT_VECTOR_BASE64: ${{ secrets.LIST_INVITE_CODE_INIT_VECTOR_BASE64 }}
 
         with:
           input: ./manifest.template.yml

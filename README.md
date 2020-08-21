@@ -190,8 +190,8 @@ For configuring Auth0 go to: manage.auth0.com > Applications > {Your App} > Sett
 
 Configure these secrets for the list service:
 
-- `LIST_INVITE_CODE_SECRET_KEY`: Random string of 32 characters
-- `LIST_INVITE_CODE_INIT_VECTOR`: Random string of 32 characters
+- `LIST_INVITE_CODE_SECRET_KEY_BASE64`: Random string of 32 characters (base64 encoded)
+- `LIST_INVITE_CODE_INIT_VECTOR_BASE64`: Random string of 32 characters (base64 encoded)
 
 When using the [`letsencrypt-nginx-proxy-companion`](#letsencrypt-nginx-proxy-companion) you should add these secrets as well (optional):
 

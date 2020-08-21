@@ -4,5 +4,5 @@ metadata:
   namespace: meal-planner
   name: list-invite-code
 data:
-  secretKey: "${LIST_INVITE_CODE_SECRET_KEY}"
-  initVector: "${LIST_INVITE_CODE_INIT_VECTOR}"
+  secretKey: "${LIST_INVITE_CODE_SECRET_KEY_BASE64}"
+  initVector: "${LIST_INVITE_CODE_INIT_VECTOR_BASE64}"
