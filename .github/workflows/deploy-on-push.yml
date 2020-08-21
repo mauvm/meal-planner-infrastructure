@@ -54,6 +54,7 @@ jobs:
         env:
           HOST_DOMAIN: ${{ secrets.HOST_DOMAIN }}
           DOCKER_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
+          DOCKER_CONFIG_JSON_BASE64: ${{ secrets.DOCKER_CONFIG_JSON_BASE64 }}
 
           # Configure letsencrypt-nginx-proxy-companion (optional)
           # See https://github.com/nginx-proxy/docker-letsencrypt-nginx-proxy-companion
@@ -67,6 +68,10 @@ jobs:
           AUTH0_CLIENT_SECRET_BASE64: ${{ secrets.AUTH0_CLIENT_SECRET_BASE64 }}
           AUTH0_AUDIENCE_BASE64: ${{ secrets.AUTH0_AUDIENCE_BASE64 }}
           AUTH0_COOKIE_SECRET_BASE64: ${{ secrets.AUTH0_COOKIE_SECRET_BASE64 }}
+
+          # List invite codes
+          LIST_INVITE_CODE_SECRET_KEY: ${{ secrets.LIST_INVITE_CODE_SECRET_KEY }}
+          LIST_INVITE_CODE_INIT_VECTOR: ${{ secrets.LIST_INVITE_CODE_INIT_VECTOR }}
 
         with:
           input: ./manifest.template.yml
