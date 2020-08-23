@@ -73,6 +73,7 @@ spec:
   jwtRules:
     - issuer: "https://${AUTH0_DOMAIN}/"
       jwksUri: "https://${AUTH0_DOMAIN}/.well-known/jwks.json"
+      forwardOriginalToken: true
 
 ---
 apiVersion: security.istio.io/v1beta1
