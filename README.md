@@ -28,14 +28,16 @@ See [`kubernetes/base/networking/gateway.yml`](kubernetes/base/networking/gatewa
 
 Tip: use an [`NGinX Proxy`](#letsencrypt-nginx-proxy-companion) in front of your Istio ingress gateway for automatic SSL certificates.
 
+## Dependencies
+
 ## Local Development
 
 Prerequisites for host machine:
 
-- [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/)
-- [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-- [Istioctl](https://github.com/istio/istio/releases/)
-- [envsubst](https://linux.die.net/man/1/envsubst)
+- [Minikube v1.13+](https://kubernetes.io/docs/tasks/tools/install-minikube/)
+- [Kubectl v1.19+](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+- [Istioctl v1.6.8](https://github.com/istio/istio/releases/)
+- [envsubst v0.21+](https://linux.die.net/man/1/envsubst)
 
 Follow the guides above to setup and configure your Minikube cluster.
 
@@ -43,6 +45,7 @@ Start Minikube VM and configure `docker` and `kubectl` commands:
 
 ```bash
 minikube start
+eval $(minikube docker-env) # Or "minikube docker-env | Invoke-Expression" on Windows
 kubectl config use-context minikube
 ```
 
@@ -65,7 +68,18 @@ Then setup [Istio](https://istio.io/):
 ```bash
 istioctl install -f istio/profile.yml
 istioctl verify-install -f kubernetes/base/networking/istio.generated.yml
-istioctl analyze
+```
+
+Before the app can be deployed you need to build the service images:
+
+```bash
+cd ../meal-planner-app-service/
+docker build -t app-service .
+
+cd ../meal-planner-list-service/
+docker build -t list-service .
+
+cd ../meal-planner-infrastructure/
 ```
 
 Finally deploy the Kubernetes resources and try out the app:
@@ -76,9 +90,15 @@ kubectl kustomize kubernetes/development/ | envsubst | kubectl apply -f -
 
 sudo minikube tunnel
 
-kubectl get -n istio-system service/istio-ingressgateway -o jsonpath="{$.spec.clusterIP}"
-# Open http://{ip}/ in browser
+# Test if app is running and accessible
+INGRESS_IP=$(kubectl get -n istio-system service/istio-ingressgateway -o jsonpath="{$.spec.clusterIP}")
+curl -v "http://$INGRESS_IP"
+
+# Add ingress IP to hosts file
+echo -e "\n$INGRESS_IP meal-planner.local" | sudo tee -a /etc/hosts
 ```
+
+Now open [http://meal-planner.local](http://meal-planner.local) in your browser.
 
 ### Helpful commands
 
@@ -91,9 +111,6 @@ minikube dashboard
 
 # Access to Istio's Kiali dashboard
 istioctl dashboard kiali # admin:admin
-
-# Configure Docker CLI
-eval $(minikube docker-env) # Or "minikube docker-env | Invoke-Expression" on Windows
 
 # Set default namespace
 kubectl config set-context --current --namespace=meal-planner
