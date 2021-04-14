@@ -53,8 +53,6 @@ jobs:
         uses: nowactions/envsubst@v1
         env:
           HOST_DOMAIN: ${{ secrets.HOST_DOMAIN }}
-          DOCKER_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
-          DOCKER_CONFIG_JSON_BASE64: ${{ secrets.DOCKER_CONFIG_JSON_BASE64 }}
 
           # Configure letsencrypt-nginx-proxy-companion (optional)
           # See https://github.com/nginx-proxy/docker-letsencrypt-nginx-proxy-companion

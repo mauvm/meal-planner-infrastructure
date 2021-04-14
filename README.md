@@ -188,14 +188,6 @@ For deployments with Github Actions you must configure the following secrets:
   3. Replace the server IP to your domain name (path: `clusters/0/cluster/server`)
   4. Encode config: `cat /tmp/kubeconfig.yml | base64`
 
-- `DOCKER_REGISTRY`: Docker registry domain name and repository name
-
-  Must end with `/`, for example: `registry.mydomain.eu/meal-planner/`.
-
-  Leavy domain name blank when using Docker Hub, for example: `meal-planner/`.
-
-- `DOCKER_CONFIG_JSON_BASE64`: base64 encoded `~/.docker/config.json` (run `docker login registry.mydomain.eu` first)
-
 For configuring Auth0 go to: manage.auth0.com > Applications > {Your App} > Settings.
 
 - `AUTH0_DOMAIN`: Settings > Domain (i.e. `my-app.eu.auth0.com`)
